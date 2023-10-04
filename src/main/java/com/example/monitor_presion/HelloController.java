@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
@@ -13,7 +14,7 @@ import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class HelloController {
+public class HelloController implements Initializable {
     @FXML
     private Button btnSave, btnUpdate;
     @FXML
@@ -25,24 +26,25 @@ public class HelloController {
     Boolean editMode = false;
     Monitor taskSelected = null;
     Random random = new Random();
+    MonitorDAO monitorDAO = new MonitorDAO();
 
 
     @FXML
     protected void onSaveButtonClick() {
         if (editMode)
         {
-            monitorpList.get(monitorpList.indexOf(taskSelected)).setSistolica(txtsistolica.getText());
-            monitorpList.get(monitorpList.indexOf(taskSelected)).setDistolica(txtdistolica.getText());
-            monitorpList.get(monitorpList.indexOf(taskSelected)).setPulsos(txtpulsos.getText());
+            monitorpList.get(monitorpList.indexOf(taskSelected)).setP_sistolica(txtsistolica.getText());
+            monitorpList.get(monitorpList.indexOf(taskSelected)).setP_distolica(txtdistolica.getText());
+            monitorpList.get(monitorpList.indexOf(taskSelected)).setC_pulsos(txtpulsos.getText());
             editMode = false;
             btnSave.setText("Add");
         } else
         {
             Monitor newMonitor = new Monitor();
             newMonitor.setId(random.nextInt(1000));
-            newMonitor.setSistolica(txtsistolica.getText());
-            newMonitor.setDistolica(txtdistolica.getText());
-            newMonitor.setPulsos(txtpulsos.getText());
+            newMonitor.setP_sistolica(txtsistolica.getText());
+            newMonitor.setP_distolica(txtdistolica.getText());
+            newMonitor.setC_pulsos(txtpulsos.getText());
             monitorpList.add(newMonitor);
         }
         tblmonitorp.refresh();
@@ -58,14 +60,10 @@ public class HelloController {
         btnSave.setText("Save");
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        initTableInfo();
-    }
 
     private void initTableInfo()
     {
-        monitorpList = FXCollections.observableArrayList( MonitorDAO.findAll());
+        monitorpList = FXCollections.observableArrayList( monitorDAO.findAll());
         tblmonitorp.setItems(monitorpList);
         tblmonitorp.setColumnResizePolicy((param) -> true );
         Platform.runLater(() -> customResize(tblmonitorp));
@@ -74,9 +72,9 @@ public class HelloController {
             {
                 //load task info in the form
                 taskSelected = tblmonitorp.getSelectionModel().getSelectedItem();
-                txtsistolica.setText(taskSelected.getSistolica());
-                txtdistolica.setText(taskSelected.getDistolica());
-                txtpulsos.setText(taskSelected.getPulsos());
+                txtsistolica.setText(taskSelected.getP_sistolica());
+                txtdistolica.setText(taskSelected.getP_distolica());
+                txtpulsos.setText(taskSelected.getC_pulsos());
                 editMode = true;
                 btnSave.setText("Save");
             }
@@ -98,4 +96,8 @@ public class HelloController {
         }
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
 }

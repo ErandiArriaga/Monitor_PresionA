@@ -5,20 +5,20 @@ import java.sql.Date;
 public class Monitor {
 
     private int id;
-    private String sistolica;
-    private String distolica;
-    private String pulsos;
+    private String p_sistolica;
+    private String p_distolica;
+    private String c_pulsos;
     private Date dueDate;
 
 
     public Monitor() {
     }
 
-    public Monitor(int id, String sistolica, String distolica, String pulsos, Date dueDate) {
+    public Monitor(int id, String p_sistolica, String p_distolica, String c_pulsos, Date dueDate) {
         this.id = id;
-        this.sistolica = sistolica;
-        this.distolica = distolica;
-        this.pulsos = pulsos;
+        this.p_distolica = p_distolica;
+        this.p_distolica = p_distolica;
+        this.c_pulsos = c_pulsos;
         this.dueDate = dueDate;
     }
 
@@ -30,28 +30,28 @@ public class Monitor {
         this.id = id;
     }
 
-    public String getSistolica() {
-        return sistolica;
+    public String getP_sistolica() {
+        return p_sistolica;
     }
 
-    public void setSistolica(String sistolica) {
-        this.sistolica = sistolica;
+    public void setP_sistolica(String p_sistolica) {
+        this.p_sistolica = p_sistolica;
     }
 
-    public String getDistolica() {
-        return distolica;
+    public String getP_distolica() {
+        return p_distolica;
     }
 
-    public void setDistolica(String distolica) {
-        this.distolica = distolica;
+    public void setP_distolica(String p_distolica) {
+        this.p_distolica = p_distolica;
     }
 
-    public String getPulsos() {
-        return pulsos;
+    public String getC_pulsos() {
+        return c_pulsos;
     }
 
-    public void setPulsos(String pulsos) {
-        this.pulsos = pulsos;
+    public void setC_pulsos(String c_pulsos) {
+        this.c_pulsos = c_pulsos;
     }
 
     public Date getDueDate() {

@@ -14,7 +14,7 @@ public class MonitorDAO extends MySQLConnection implements Dao<Monitor>{
     @Override
     public Optional<Monitor> findById(int id) {
         Optional<Monitor> optionalMonitor = Optional.empty();
-        String query = "select * from tasks where id = ?";
+        String query = "select * from monitorp where id = ?";
         try {
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setLong(1, id);
@@ -23,9 +23,9 @@ public class MonitorDAO extends MySQLConnection implements Dao<Monitor>{
             {
                 Monitor monitor = new Monitor();
                 monitor.setId(rs.getInt("id"));
-                monitor.setSistolica(rs.getString("sistolica"));
-                monitor.setDistolica(rs.getString("distolica"));
-                monitor.setPulsos(rs.getString("pulsos"));
+                monitor.setP_sistolica(rs.getString("p_sistolica"));
+                monitor.setP_distolica(rs.getString("p_distolica"));
+                monitor.setC_pulsos(rs.getString("c_pulsos"));
                 monitor.setDueDate(rs.getDate("dueDate"));
                 optionalMonitor = Optional.of(monitor);
             }
@@ -36,7 +36,6 @@ public class MonitorDAO extends MySQLConnection implements Dao<Monitor>{
 
         return optionalMonitor;
     }
-
 
     public List<Monitor> findAll() {
         List<Monitor> monitorList = FXCollections.observableArrayList();
@@ -49,11 +48,12 @@ public class MonitorDAO extends MySQLConnection implements Dao<Monitor>{
             {
                 Monitor monitor = new Monitor();
                 monitor.setId(rs.getInt("id"));
-                monitor.setSistolica(rs.getString("sistolica"));
-                monitor.setDistolica(rs.getString("distolica"));
-                monitor.setPulsos(rs.getString("pulsos"));
+                monitor.setP_sistolica(rs.getString("p_sistolica"));
+                monitor.setP_distolica(rs.getString("p_distolica"));
+                monitor.setC_pulsos(rs.getString("c_pulsos"));
                 monitor.setDueDate(rs.getDate("dueDate"));
                 monitorList.add(monitor);
+                System.out.println(monitor.getId());
             }
 
         } catch (SQLException e) {
@@ -65,13 +65,13 @@ public class MonitorDAO extends MySQLConnection implements Dao<Monitor>{
     @Override
     public boolean save(Monitor monitor) {
         String query = "insert into monitorp " +
-                " (sistolica, distolica, pulsos, dueDate)" +
+                " (p_sistolica, p_distolica, c_pulsos, dueDate)" +
                 " values (?, ?, ?, ?)";
         try {
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, monitor.getSistolica());
-            ps.setString(2, monitor.getDistolica());
-            ps.setString(3, monitor.getPulsos());
+            ps.setString(1, monitor.getP_sistolica());
+            ps.setString(2, monitor.getP_distolica());
+            ps.setString(3, monitor.getC_pulsos());
             ps.setDate(4, monitor.getDueDate());
             ps.execute();
             return true;
@@ -83,12 +83,12 @@ public class MonitorDAO extends MySQLConnection implements Dao<Monitor>{
 
     @Override
     public boolean update(Monitor monitor) {
-        String query = "update tasks set sistolica=?, distolica=?, pulsos=?, dueDate=?  where id = ?";
+        String query = "update monitorp set p_sistolica=?, p_distolica=?, c_pulsos=?, dueDate=?  where id = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, monitor.getSistolica());
-            ps.setString(2, monitor.getDistolica());
-            ps.setString(3, monitor.getPulsos());
+            ps.setString(1, monitor.getP_sistolica());
+            ps.setString(2, monitor.getP_distolica());
+            ps.setString(3, monitor.getC_pulsos());
             ps.setDate(4, monitor.getDueDate());
             ps.setInt(5, monitor.getId());
             ps.execute();
