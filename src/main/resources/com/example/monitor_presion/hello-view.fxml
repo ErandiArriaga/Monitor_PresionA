@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" prefHeight="395.0" prefWidth="422.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea"  xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.monitor_presion.HelloController">
+
+  <padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+  </padding>
+
+  <Label fx:id="title" text="Monitor de Presión Arterial"  styleClass="title"/>
+  <GridPane hgap="15" prefHeight="105.0" prefWidth="450.0" vgap="15">
+
+  <Label fx:id="sistolica" text="Presión sistólica" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+  <TextField fx:id="txtsistolica" GridPane.columnIndex="1" GridPane.rowIndex="0">
+    <font>
+      <Font size="11.0" />
+    </font></TextField>
+
+  <Label fx:id="distólica" text="Presión distólica" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+  <TextField fx:id="txtdistolica" GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <font>
+      <Font size="11.0" />
+    </font></TextField>
+
+  <Label fx:id="cantpulsos" text="Cant. Pulsos" GridPane.rowIndex="3" />
+  <TextField fx:id="txtpulsos" GridPane.columnIndex="1" GridPane.rowIndex="3">
+    <font>
+      <Font size="11.0" />
+    </font></TextField>
+
+  <Label text="Due Date" GridPane.rowIndex="5" />
+  <DatePicker fx:id="dpDueDate" promptText="Due date" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+  <Button fx:id="btnSave" minWidth="80" onAction="#onSaveButtonClick" text="Save" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+  <Button fx:id="btnUpdate" minWidth="80" onAction="#onUpdateButtonClick" text="Update" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <columnConstraints>
+         <ColumnConstraints />
+         <ColumnConstraints />
+         <ColumnConstraints />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
+
+</GridPane>
+    <TableView fx:id="tblmonitorp" prefHeight="124.0" prefWidth="410.0">
+        <columns>
+            <TableColumn text="ID">
+                <cellValueFactory>
+                    <PropertyValueFactory property="id" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="P. Sistólica">
+                <cellValueFactory>
+                    <PropertyValueFactory property="sistolica" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="P. Distólica">
+                <cellValueFactory>
+                    <PropertyValueFactory property="distolica" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="113.0" text="Fecha Registro">
+                <cellValueFactory>
+                    <PropertyValueFactory property="fecha" />
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+
+</VBox>
